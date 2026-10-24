@@ -81,19 +81,17 @@ section{padding-block:72px 0}
 .sechead h2{font-size:clamp(1.9rem,4vw,2.8rem);font-weight:800;letter-spacing:-.02em}
 .sechead p{color:var(--muted);max-width:46ch}
 
-/* process */
-.process{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
-.step{font:inherit;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;cursor:pointer;color:var(--ink);transition:border-color .2s,background .2s}
-.step .n{font-family:var(--f-mono);font-size:.75rem;color:var(--muted)}
-.step h3{font-size:1.1rem;margin-top:6px}
-.step[aria-pressed="true"]{border-color:var(--indigo);background:var(--indigo-soft)}
-.stepdetail{margin-top:12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center}
-.stepdetail > *{min-width:0}
-.stepdetail p{max-width:65ch}
-.tools{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
-.tool{font-family:var(--f-mono);font-size:.74rem;padding:4px 10px;border-radius:6px;background:var(--mint-soft);color:var(--mint)}
-@media (max-width:760px){.process{grid-template-columns:1fr 1fr}.stepdetail{grid-template-columns:1fr}.tools{justify-content:flex-start}}
-
+/* certificates */
+.certs{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.cert{font:inherit;text-align:left;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:10px;cursor:pointer;transition:transform .2s,border-color .2s;position:relative;overflow:hidden}
+.cert:hover{transform:translateY(-3px);border-color:var(--indigo)}
+.cert::after{content:"";position:absolute;right:-28px;top:-28px;width:84px;height:84px;border-radius:50%;border:10px solid var(--indigo-soft)}
+.cert .issuer{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding-right:48px}
+.cert h3{font-size:1.15rem;font-weight:600}
+.cert .score{display:flex;align-items:baseline;gap:6px;margin-top:auto;padding-top:6px;flex-wrap:wrap}
+.cert .score strong{font-family:var(--f-display);font-size:2rem;font-weight:800;color:var(--indigo);font-variant-numeric:tabular-nums;line-height:1}
+.cert .score span{color:var(--muted);font-size:.85rem}
+.cert .date{font-family:var(--f-mono);font-size:.76rem;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px}
 /* works */
 .filters{display:flex;gap:8px;flex-wrap:wrap}
 .chip{font:inherit;font-size:.9rem;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;display:inline-flex;gap:8px;align-items:center}
@@ -184,7 +182,7 @@ footer{padding-block:0 32px;color:var(--muted);display:flex;justify-content:spac
   <div class="wrap">
     <a class="brand" href="#top">Lyra<span>.</span></a>
     <div class="navlinks">
-      <a href="#cara">Cara Kerja</a>
+      <a href="#sertifikasi">Sertifikasi</a>
       <a href="#karya" class="keep">Karya</a>
       <a href="#pengalaman">Pengalaman</a>
       <a href="#kontak" class="keep">Kontak</a>
@@ -217,19 +215,18 @@ footer{padding-block:0 32px;color:var(--muted);display:flex;justify-content:spac
   </header>
 
   <div class="stats" aria-label="Ringkasan">
-    <div class="stat"><strong>12</strong><span>Karya terpilih</span></div>
+    <div class="stat"><strong>10</strong><span>Karya terpilih</span></div>
     <div class="stat"><strong>2</strong><span>Publikasi ilmiah</span></div>
     <div class="stat"><strong>5</strong><span>Proyek UI/UX</span></div>
-    <div class="stat"><strong>4</strong><span>Proyek business research</span></div>
+    <div class="stat"><strong>2</strong><span>Proyek business research</span></div>
   </div>
 
-  <section id="cara">
+  <section id="sertifikasi">
     <div class="sechead">
-      <h2>Dari pertanyaan ke layar</h2>
-      <p>Lima tahap yang saya pakai di hampir setiap proyek. Pilih satu tahap untuk melihat isinya.</p>
+      <h2>Sertifikasi &amp; pencapaian</h2>
+      <p>Klik kartu untuk melihat detail. Sertifikat lainnya ada di <a href="https://www.linkedin.com/search/results/all/?keywords=Lyra%20Anindita%20Ferani" target="_blank" rel="noopener">LinkedIn saya ↗</a></p>
     </div>
-    <div class="process" role="group" aria-label="Tahapan kerja" id="process"></div>
-    <div class="stepdetail" id="stepdetail" aria-live="polite"></div>
+    <div class="certs" id="certs"></div>
   </section>
 
   <section id="karya">
@@ -243,8 +240,9 @@ footer{padding-block:0 32px;color:var(--muted);display:flex;justify-content:spac
   </section>
 
   <section id="pengalaman">
-    <div class="sechead"><h2>Pengalaman</h2><p>Riset lapangan, forum ilmiah, dan administrasi kantor pemerintahan. Selengkapnya di <a href="https://www.linkedin.com/search/results/all/?keywords=Lyra%20Anindita%20Ferani" target="_blank" rel="noopener">LinkedIn ↗</a></p></div>
+    <div class="sechead"><h2>Pengalaman</h2><p>Media sosial, riset lapangan, forum ilmiah, dan administrasi kantor pemerintahan. Selengkapnya di <a href="https://www.linkedin.com/search/results/all/?keywords=Lyra%20Anindita%20Ferani" target="_blank" rel="noopener">LinkedIn ↗</a></p></div>
     <div class="tl">
+      <div class="ti"><span class="mono">HOPE</span><div><h3>Staff Social Media Specialist</h3><p>Mengelola dan merancang konten media sosial HOPE.</p></div></div>
       <div class="ti"><span class="mono">Jun 2026</span><div><h3>Research Assistant</h3><p>Proyek riset pasar UMKM di Pekalongan: membantu pengumpulan dan pengolahan data lapangan.</p></div></div>
       <div class="ti"><span class="mono">Mei–Jun 2026</span><div><h3>Top 10 Finalist, APBISDI UI/UX Competition</h3><p>Merancang UniConnect, platform edukasi digital.</p></div></div>
       <div class="ti"><span class="mono">Nov 2024</span><div><h3>Presenter, AEBD National Seminar &amp; Call for Paper</h3><p>Universitas Ibn Khaldun Bogor. Mempresentasikan penelitian Fraud Pentagon Theory pada emiten syariah LQ45.</p></div></div>
@@ -271,7 +269,7 @@ footer{padding-block:0 32px;color:var(--muted);display:flex;justify-content:spac
       <div class="links"><a href="https://www.linkedin.com/search/results/all/?keywords=Lyra%20Anindita%20Ferani" target="_blank" rel="noopener">LinkedIn ↗</a><span style="opacity:.6">Batang, Jawa Tengah</span></div>
     </div>
   </div>
-  <footer class="mono"><span>© 2026 Lyra Anindita Ferani</span><span>Dibuat dengan data dan rasa ingin tahu</span></footer>
+  <footer class="mono"><span>© 2026 Lyra Anindita Ferani</span></footer>
 </main>
 
 <dialog id="dlg" aria-labelledby="dTitle">
@@ -294,25 +292,31 @@ $('#themeBtn').addEventListener('click',()=>{
 });
 try{const t=localStorage.getItem('theme'); if(t) document.documentElement.dataset.theme=t;}catch(e){}
 
-/* ---------- process ---------- */
-const steps=[
-  {t:'Pertanyaan',d:'Merumuskan masalah dari kebutuhan nyata: pelaku UMKM, peneliti pemula, atau warga di daerah rawan bencana. Batasan objek ditulis sejak awal supaya riset tetap fokus.',tools:['Literatur','Wawancara']},
-  {t:'Data',d:'Menyusun kuesioner, mengumpulkan data primer, dan melengkapinya dengan data sekunder seperti laporan keuangan emiten atau statistik BPS.',tools:['Google Form','BPS','IDX']},
-  {t:'Analisis',d:'Membersihkan data, mencari pola, lalu menguji hubungan antarvariabel. Untuk valuasi saya memakai model DCF-FCFF.',tools:['Excel','RapidMiner','Power BI']},
-  {t:'Desain',d:'Mengubah temuan menjadi user flow, wireframe, dan prototipe high-fidelity yang menjawab masalah yang sudah dirumuskan.',tools:['Figma','Prototyping']},
-  {t:'Uji',d:'Mengukur apakah solusi benar-benar mudah dipakai, misalnya dengan System Usability Scale dalam beberapa gelombang, lalu memperbaiki desain dari hasilnya.',tools:['SUS','Iterasi']}
+
+
+/* ---------- certificates ---------- */
+const certs=[
+  {t:'Presenter, AEBD National Seminar & Call for Paper',org:'Universitas Ibn Khaldun Bogor',score:'Presenter',unit:'',date:'November 2024',
+   d:'Mempresentasikan penelitian "Fraud Pentagon Theory in Detecting Fraudulent Financial Reporting of Islamic Companies Indexed by LQ45 for the 2023 Period". Makalah dimuat dalam prosiding seminar.'},
+  {t:'Top 10 Finalist, APBISDI UI/UX Competition 2026',org:'APBISDI',score:'91,3',unit:'skor evaluasi',date:'Mei – Juni 2026',
+   d:'Masuk 10 besar finalis lewat rancangan UniConnect, platform edukasi digital, dengan skor evaluasi 91,3.'},
+  {t:'Sertifikasi Kompetensi Office Administration',org:'BNSP',score:'Kompeten',unit:'',date:'Berlaku Apr 2024 – Apr 2027',
+   d:'Sertifikat kompetensi dari Badan Nasional Sertifikasi Profesi di bidang administrasi perkantoran.'},
+  {t:'Tes Potensi Akademik (TPA)',org:'Tes Potensi Akademik',score:'637',unit:'skor',date:'Juli 2026',
+   d:'Tes kemampuan verbal, numerik, dan penalaran untuk keperluan studi lanjut dan beasiswa.'},
+  {t:'Program Bahasa Arab Intensif',org:'UIN K.H. Abdurrahman Wahid Pekalongan',score:'92',unit:'nilai akhir',date:'Juli 2025',
+   d:'Menyelesaikan program bahasa Arab intensif dengan nilai akhir 92.'}
 ];
-const proc=$('#process'), sd=$('#stepdetail');
-steps.forEach((s,i)=>{
-  const b=document.createElement('button');b.className='step';b.type='button';
-  b.innerHTML=`<span class="n">Tahap ${i+1}</span><h3>${s.t}</h3>`;
-  b.onclick=()=>pickStep(i); proc.appendChild(b);
+certs.forEach(c=>{
+  const b=document.createElement('button');b.type='button';b.className='cert';
+  b.innerHTML=`<span class="issuer">${c.org}</span><h3>${c.t}</h3><div class="score"><strong>${c.score}</strong><span>${c.unit}</span></div><span class="date">${c.date}</span>`;
+  b.onclick=()=>{
+    $('#dTag').className='tag ux';$('#dTag').textContent='Sertifikasi';$('#dTitle').textContent=c.t;
+    $('#dBody').innerHTML=`<div class="facts"><div><span class="label">Penerbit</span><b>${c.org}</b></div><div><span class="label">Hasil</span><b>${c.score}${c.unit?' ('+c.unit+')':''}</b></div><div><span class="label">Tanggal</span><b>${c.date}</b></div></div><p>${c.d}</p>`;
+    document.getElementById('dlg').showModal();
+  };
+  document.getElementById('certs').appendChild(b);
 });
-function pickStep(i){
-  [...proc.children].forEach((b,j)=>b.setAttribute('aria-pressed',j===i));
-  sd.innerHTML=`<p>${steps[i].d}</p><div class="tools">${steps[i].tools.map(t=>`<span class="tool">${t}</span>`).join('')}</div>`;
-}
-pickStep(0);
 
 /* ---------- works ---------- */
 const CAT={res:'Business Research',jur:'Jurnal',ux:'UI/UX'};
@@ -347,12 +351,6 @@ const works=[
   {id:'asgr',cat:'res',title:'Valuasi DCF-FCFF Emiten ASGR',year:'2026',sum:'Menghitung nilai wajar saham dengan model Discounted Cash Flow berbasis free cash flow to firm.',metric:'Model valuasi Excel',
    role:'Analis (tugas kuliah)',period:'Okt 2026',tools:'Excel · data BPS',
    body:[['Pendekatan','Memproyeksikan arus kas bebas perusahaan dan mendiskontokannya untuk mendapatkan nilai wajar.'],['Data','Asumsi pertumbuhan PDB tahunan Indonesia disesuaikan dengan sumber BPS.']]},
-  {id:'trading',cat:'res',title:'Analisis Teknikal Saham',year:'2026',sum:'Presentasi analisis teknikal untuk Lomba Virtual Trading bersama tim.',metric:'Tim 3 orang',
-   role:'Anggota tim',period:'Okt 2026',tools:'Chart · indikator teknikal',
-   body:[['Konteks','Bahan presentasi untuk Lomba Virtual Trading dengan tema Analisis Teknikal.'],['Cakupan','Membaca tren harga dan indikator teknikal sebagai dasar keputusan jual dan beli.']]},
-  {id:'peneliti',cat:'res',title:'Survei Kebutuhan Peneliti Pemula',year:'2026',sum:'Kuesioner untuk memetakan kesulitan peneliti pemula saat mengolah dataset.',metric:'Dasar pengembangan DORA',
-   role:'Peneliti',period:'2026',tools:'Kuesioner · Excel',
-   body:[['Tujuan','Menemukan masalah nyata peneliti sebelum aplikasi dirancang.'],['Hasil','Temuan survei menjadi dasar fitur DORA dan dimasukkan ke bagian hasil KTI.']]}
 ];
 
 const IMG_DIR='';
@@ -446,7 +444,7 @@ $('#copyBtn').addEventListener('click',async()=>{
 });
 
 /* nav highlight */
-const secs=['cara','karya','pengalaman','kontak'].map(id=>document.getElementById(id));
+const secs=['sertifikasi','karya','pengalaman','kontak'].map(id=>document.getElementById(id));
 addEventListener('scroll',()=>{let cur='';secs.forEach(s=>{if(s.getBoundingClientRect().top<160)cur=s.id});
   document.querySelectorAll('.navlinks a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+cur))},{passive:true});
 
