@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lyra Anindita Ferani</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: research-notebook grid. Indigo ink (nod to Pekalongan batik) on cool paper, one mint signal colour for data. */
+:root{
+  --paper:#f3f5f8; --surface:#ffffff; --ink:#141a33; --muted:#566079; --line:#d9dee8;
+  --indigo:#2b3a9e; --indigo-soft:#e3e7fb; --mint:#0f8c74; --mint-soft:#dcf3ed; --amber:#b5660b;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, "Cascadia Mono", monospace;
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --paper:#0e1222; --surface:#161b30; --ink:#e8ebf5; --muted:#9aa3bd; --line:#2a3150;
+  --indigo:#8e9cff; --indigo-soft:#232b55; --mint:#4fd1b2; --mint-soft:#163a35; --amber:#f0a54a; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --paper:#0e1222; --surface:#161b30; --ink:#e8ebf5; --muted:#9aa3bd; --line:#2a3150;
+  --indigo:#8e9cff; --indigo-soft:#232b55; --mint:#4fd1b2; --mint-soft:#163a35; --amber:#f0a54a; color-scheme:dark }
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+.wrap{max-width:1120px;margin:0 auto}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.08}
+p{margin:0}
+a{color:var(--indigo)}
+:focus-visible{outline:2px solid var(--indigo);outline-offset:3px;border-radius:6px}
+.mono{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.04em}
+.label{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+/* nav */
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line);margin:0 calc(-1 * max(16px,env(safe-area-inset-left,0px)))}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px max(16px,env(safe-area-inset-left,0px))}
+.brand{font-family:var(--f-display);font-weight:800;font-size:1.1rem;text-decoration:none;color:var(--ink)}
+.brand span{color:var(--indigo)}
+.navlinks{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
+.navlinks a{color:var(--muted);text-decoration:none;font-size:.9rem;padding:6px 10px;border-radius:999px}
+.navlinks a:hover,.navlinks a.on{color:var(--ink);background:var(--indigo-soft)}
+.themebtn{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 10px;cursor:pointer;font:inherit;font-size:.85rem}
+@media (max-width:640px){.navlinks a:not(.keep){display:none}}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding-block:64px 48px}
+.hero > *{min-width:0}
+.hero h1{font-size:clamp(2.6rem,7vw,5.2rem);font-weight:800;letter-spacing:-.03em}
+.hero h1 em{font-style:normal;color:var(--indigo)}
+.lede{font-size:1.15rem;color:var(--muted);max-width:52ch;margin-top:20px}
+.roles{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.role{font-family:var(--f-mono);font-size:.8rem;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface)}
+.role b{color:var(--mint);font-weight:500}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.btn{font:inherit;font-weight:600;font-size:.95rem;padding:12px 20px;border-radius:999px;cursor:pointer;text-decoration:none;border:1px solid var(--ink);display:inline-flex;gap:8px;align-items:center;transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn.primary{background:var(--ink);color:var(--paper)}
+.btn.ghost{background:transparent;color:var(--ink)}
+
+.field{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:16px;position:relative}
+.field canvas{width:100%;aspect-ratio:1/1;max-width:100%;display:block;border-radius:12px;cursor:crosshair;touch-action:none}
+.field-meta{display:flex;justify-content:space-between;gap:8px;margin-top:10px;color:var(--muted);flex-wrap:wrap}
+.readout{position:absolute;top:28px;left:28px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 10px;pointer-events:none}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stat{padding:20px 16px;border-right:1px solid var(--line)}
+.stat:last-child{border-right:0}
+.stat strong{display:block;font-family:var(--f-display);font-size:2rem;font-weight:600;font-variant-numeric:tabular-nums}
+.stat span{color:var(--muted);font-size:.88rem}
+@media (max-width:760px){.hero{grid-template-columns:1fr;padding-block:40px}.stats{grid-template-columns:1fr 1fr}.stat:nth-child(2){border-right:0}.stat:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+
+section{padding-block:72px 0}
+.sechead{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:28px}
+.sechead h2{font-size:clamp(1.9rem,4vw,2.8rem);font-weight:800;letter-spacing:-.02em}
+.sechead p{color:var(--muted);max-width:46ch}
+
+/* process */
+.process{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.step{font:inherit;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;cursor:pointer;color:var(--ink);transition:border-color .2s,background .2s}
+.step .n{font-family:var(--f-mono);font-size:.75rem;color:var(--muted)}
+.step h3{font-size:1.1rem;margin-top:6px}
+.step[aria-pressed="true"]{border-color:var(--indigo);background:var(--indigo-soft)}
+.stepdetail{margin-top:12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center}
+.stepdetail > *{min-width:0}
+.stepdetail p{max-width:65ch}
+.tools{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.tool{font-family:var(--f-mono);font-size:.74rem;padding:4px 10px;border-radius:6px;background:var(--mint-soft);color:var(--mint)}
+@media (max-width:760px){.process{grid-template-columns:1fr 1fr}.stepdetail{grid-template-columns:1fr}.tools{justify-content:flex-start}}
+
+/* works */
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font:inherit;font-size:.9rem;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+.chip .c{font-family:var(--f-mono);font-size:.75rem;color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.chip[aria-pressed="true"] .c{color:var(--paper);opacity:.7}
+.search{font:inherit;font-size:.9rem;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);min-width:0;width:220px;max-width:100%}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+@media (max-width:960px){.grid{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.grid{grid-template-columns:1fr}}
+.card{font:inherit;text-align:left;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:0;cursor:pointer;display:flex;flex-direction:column;overflow:hidden;transition:transform .2s,border-color .2s}
+.card:hover{transform:translateY(-4px);border-color:var(--indigo)}
+.card.hide{display:none}
+.thumb{aspect-ratio:16/9;max-width:100%;position:relative;border-bottom:1px solid var(--line)}
+.thumb canvas{width:100%;height:100%;display:block}
+.cbody{padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;flex:1}
+.ctop{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.tag{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:5px}
+.tag.res{background:var(--mint-soft);color:var(--mint)}
+.tag.jur{background:color-mix(in srgb,var(--amber) 16%,transparent);color:var(--amber)}
+.tag.ux{background:var(--indigo-soft);color:var(--indigo)}
+.card h3{font-size:1.25rem;font-weight:600}
+.card p{color:var(--muted);font-size:.92rem}
+.metric{margin-top:auto;padding-top:8px;font-family:var(--f-mono);font-size:.78rem;color:var(--ink);display:flex;gap:6px;align-items:center}
+.metric::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--mint)}
+.metric.wip::before{background:var(--amber)}
+.empty{color:var(--muted);padding:32px 0}
+.shots{position:absolute;inset:0;display:flex;gap:10px;justify-content:center;align-items:flex-start;padding:16px 16px 0;background:var(--indigo-soft);overflow:hidden}
+.shots img{height:165%;width:auto;max-width:none;border-radius:10px;box-shadow:0 6px 18px rgba(20,26,51,.18)}
+.shots img:nth-child(2){margin-top:14px}
+.shots.wide{padding:14px 14px 0;align-items:flex-start}
+.shots.wide img{width:100%;height:auto;max-width:100%;border-radius:8px}
+.gallery{display:flex;gap:12px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x mandatory}
+.gallery img{height:min(440px,60vh);width:auto;max-width:none;border-radius:12px;border:1px solid var(--line);scroll-snap-align:start}
+.gallery.wide img{height:auto;width:min(640px,100%);max-width:100%}
+
+/* dialog */
+dialog{border:1px solid var(--line);border-radius:20px;padding:0;max-width:720px;width:calc(100% - 32px);background:var(--surface);color:var(--ink)}
+dialog::backdrop{background:rgba(10,14,30,.55);backdrop-filter:blur(3px)}
+.dhead{padding:24px 24px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;align-items:start}
+.dhead h3{font-size:1.7rem;margin-top:8px}
+.close{font:inherit;border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:999px;width:36px;height:36px;cursor:pointer;flex-shrink:0}
+.dbody{padding:20px 24px 24px;display:grid;gap:18px}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.facts div{background:var(--paper);border-radius:10px;padding:10px 12px;min-width:0}
+.facts b{display:block;font-weight:500;font-size:.92rem;margin-top:2px}
+.dbody h4{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+.dbody ul{margin:0;padding-left:1.1rem}
+.dbody li{margin-bottom:4px}
+@media (max-width:560px){.facts{grid-template-columns:1fr}}
+
+/* timeline */
+.tl{display:grid;gap:0;border-left:2px solid var(--line);margin-left:6px}
+.ti{position:relative;padding:0 0 28px 28px;display:grid;grid-template-columns:150px 1fr;gap:16px}
+.ti > *{min-width:0}
+.ti::before{content:"";position:absolute;left:-8px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--paper);border:3px solid var(--indigo)}
+.ti h3{font-size:1.15rem;font-weight:600}
+.ti p{color:var(--muted);font-size:.93rem;margin-top:4px;max-width:62ch}
+@media (max-width:600px){.ti{grid-template-columns:1fr;gap:4px}}
+
+.skills{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.sk{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.sk h3{font-size:1.1rem;margin-bottom:12px}
+.sk .list{display:flex;flex-wrap:wrap;gap:6px}
+.sk .list span{font-size:.85rem;padding:4px 10px;border-radius:6px;border:1px solid var(--line)}
+@media (max-width:760px){.skills{grid-template-columns:1fr}}
+
+/* contact */
+.contact{margin-block:72px 48px;background:var(--ink);color:var(--paper);border-radius:24px;padding:40px;display:grid;grid-template-columns:1.2fr 1fr;gap:32px;align-items:center}
+.contact > *{min-width:0}
+.contact h2{font-size:clamp(1.9rem,4.5vw,3rem);font-weight:800}
+.contact p{opacity:.75;margin-top:12px;max-width:44ch}
+.mailbox{background:color-mix(in srgb,var(--paper) 10%,transparent);border-radius:14px;padding:16px;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.mailbox code{font-family:var(--f-mono);font-size:.95rem;user-select:all;overflow-wrap:anywhere}
+.copy{font:inherit;font-weight:600;background:var(--paper);color:var(--ink);border:0;border-radius:999px;padding:8px 16px;cursor:pointer}
+.links{display:flex;gap:16px;margin-top:14px;flex-wrap:wrap}
+.links a{color:var(--paper);opacity:.8}
+@media (max-width:760px){.contact{grid-template-columns:1fr;padding:28px}}
+footer{padding-block:0 32px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+
+@media (prefers-reduced-motion: reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+
+<nav aria-label="Navigasi utama">
+  <div class="wrap">
+    <a class="brand" href="#top">Lyra<span>.</span></a>
+    <div class="navlinks">
+      <a href="#cara">Cara Kerja</a>
+      <a href="#karya" class="keep">Karya</a>
+      <a href="#pengalaman">Pengalaman</a>
+      <a href="#kontak" class="keep">Kontak</a>
+      <button class="themebtn" id="themeBtn" type="button" aria-label="Ganti tema">◐</button>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap" id="top">
+  <header class="hero">
+    <div>
+      <p class="label">Portofolio · Bisnis Digital · UIN K.H. Abdurrahman Wahid Pekalongan</p>
+      <h1 style="margin-top:14px">Lyra Anindita <em>Ferani</em></h1>
+      <p class="lede">Saya meneliti perilaku bisnis dengan data, menuliskannya menjadi jurnal, lalu menerjemahkan temuannya menjadi antarmuka yang mudah dipakai.</p>
+      <div class="roles">
+        <span class="role"><b>●</b> Business Research</span>
+        <span class="role"><b>●</b> Jurnal &amp; Publikasi</span>
+        <span class="role"><b>●</b> UI/UX Design</span>
+      </div>
+      <div class="cta">
+        <a class="btn primary" href="#karya">Lihat karya →</a>
+        <a class="btn ghost" href="#kontak">Hubungi saya</a>
+      </div>
+    </div>
+    <figure class="field" style="margin:0">
+      <canvas id="field" aria-label="Visualisasi titik data interaktif. Gerakkan kursor untuk mengubah sebaran."></canvas>
+      <div class="readout mono" id="readout">x 0.00 · y 0.00</div>
+      <figcaption class="field-meta mono"><span>Sebaran data · gerakkan kursor</span><span>6°53′ LS · 109°40′ BT</span></figcaption>
+    </figure>
+  </header>
+
+  <div class="stats" aria-label="Ringkasan">
+    <div class="stat"><strong>12</strong><span>Karya terpilih</span></div>
+    <div class="stat"><strong>2</strong><span>Publikasi ilmiah</span></div>
+    <div class="stat"><strong>5</strong><span>Proyek UI/UX</span></div>
+    <div class="stat"><strong>4</strong><span>Proyek business research</span></div>
+  </div>
+
+  <section id="cara">
+    <div class="sechead">
+      <h2>Dari pertanyaan ke layar</h2>
+      <p>Lima tahap yang saya pakai di hampir setiap proyek. Pilih satu tahap untuk melihat isinya.</p>
+    </div>
+    <div class="process" role="group" aria-label="Tahapan kerja" id="process"></div>
+    <div class="stepdetail" id="stepdetail" aria-live="polite"></div>
+  </section>
+
+  <section id="karya">
+    <div class="sechead">
+      <h2>Karya terpilih</h2>
+      <div class="filters" role="group" aria-label="Filter kategori" id="filters"></div>
+    </div>
+    <input class="search" id="search" type="search" placeholder="Cari karya, mis. UMKM" aria-label="Cari karya">
+    <div class="grid" id="grid"></div>
+    <p class="empty" id="empty" hidden>Belum ada karya yang cocok dengan pencarian itu.</p>
+  </section>
+
+  <section id="pengalaman">
+    <div class="sechead"><h2>Pengalaman</h2><p>Riset lapangan, forum ilmiah, dan administrasi kantor pemerintahan. Selengkapnya di <a href="https://www.linkedin.com/search/results/all/?keywords=Lyra%20Anindita%20Ferani" target="_blank" rel="noopener">LinkedIn ↗</a></p></div>
+    <div class="tl">
+      <div class="ti"><span class="mono">Jun 2026</span><div><h3>Research Assistant</h3><p>Proyek riset pasar UMKM di Pekalongan: membantu pengumpulan dan pengolahan data lapangan.</p></div></div>
+      <div class="ti"><span class="mono">Mei–Jun 2026</span><div><h3>Top 10 Finalist, APBISDI UI/UX Competition</h3><p>Merancang UniConnect, platform edukasi digital.</p></div></div>
+      <div class="ti"><span class="mono">Nov 2024</span><div><h3>Presenter, AEBD National Seminar &amp; Call for Paper</h3><p>Universitas Ibn Khaldun Bogor. Mempresentasikan penelitian Fraud Pentagon Theory pada emiten syariah LQ45.</p></div></div>
+      <div class="ti"><span class="mono">Okt 2022–Jan 2023</span><div><h3>Office Administration Intern</h3><p>Kantor ATR/BPN Kabupaten Batang.</p></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sechead"><h2>Keahlian</h2><p>Sertifikasi, pelatihan, dan pengalaman lengkap ada di <a href="https://www.linkedin.com/search/results/all/?keywords=Lyra%20Anindita%20Ferani" target="_blank" rel="noopener">LinkedIn saya ↗</a></p></div>
+    <div class="skills">
+      <div class="sk"><h3>Riset &amp; Data</h3><div class="list"><span>Business Research</span><span>User Research</span><span>Data Analysis</span><span>RapidMiner</span><span>Power BI</span><span>Excel</span><span>Kuesioner &amp; SUS</span></div></div>
+      <div class="sk"><h3>Desain</h3><div class="list"><span>Figma</span><span>Wireframing</span><span>Prototyping</span><span>UI/UX Design</span><span>User Flow</span><span>Canva</span></div></div>
+      <div class="sk"><h3>Bahasa &amp; Kerja</h3><div class="list"><span>Indonesia (native)</span><span>Inggris (menengah)</span><span>Arab (menengah)</span><span>Komunikasi</span><span>Kerja tim</span><span>Manajemen waktu</span></div></div>
+    </div>
+  </section>
+
+  <div class="contact" id="kontak">
+    <div>
+      <h2>Mari berkolaborasi.</h2>
+      <p>Terbuka untuk proyek riset, kolaborasi penulisan, magang, dan desain produk digital. Sertifikasi dan riwayat lengkap bisa dilihat di LinkedIn.</p>
+    </div>
+    <div>
+      <div class="mailbox"><code id="email">aninditalyra60@gmail.com</code><button class="copy" id="copyBtn" type="button">Salin email</button></div>
+      <div class="links"><a href="https://www.linkedin.com/search/results/all/?keywords=Lyra%20Anindita%20Ferani" target="_blank" rel="noopener">LinkedIn ↗</a><span style="opacity:.6">Batang, Jawa Tengah</span></div>
+    </div>
+  </div>
+  <footer class="mono"><span>© 2026 Lyra Anindita Ferani</span><span>Dibuat dengan data dan rasa ingin tahu</span></footer>
+</main>
+
+<dialog id="dlg" aria-labelledby="dTitle">
+  <div class="dhead"><div><span class="tag" id="dTag"></span><h3 id="dTitle"></h3></div><button class="close" id="dClose" type="button" aria-label="Tutup">✕</button></div>
+  <div class="dbody" id="dBody"></div>
+</dialog>
+
+<script>
+const $=s=>document.querySelector(s);
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- theme toggle ---------- */
+$('#themeBtn').addEventListener('click',()=>{
+  const r=document.documentElement;
+  const dark = r.dataset.theme ? r.dataset.theme==='dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  r.dataset.theme = dark?'light':'dark';
+  try{localStorage.setItem('theme',r.dataset.theme)}catch(e){}
+  drawThumbs();
+});
+try{const t=localStorage.getItem('theme'); if(t) document.documentElement.dataset.theme=t;}catch(e){}
+
+/* ---------- process ---------- */
+const steps=[
+  {t:'Pertanyaan',d:'Merumuskan masalah dari kebutuhan nyata: pelaku UMKM, peneliti pemula, atau warga di daerah rawan bencana. Batasan objek ditulis sejak awal supaya riset tetap fokus.',tools:['Literatur','Wawancara']},
+  {t:'Data',d:'Menyusun kuesioner, mengumpulkan data primer, dan melengkapinya dengan data sekunder seperti laporan keuangan emiten atau statistik BPS.',tools:['Google Form','BPS','IDX']},
+  {t:'Analisis',d:'Membersihkan data, mencari pola, lalu menguji hubungan antarvariabel. Untuk valuasi saya memakai model DCF-FCFF.',tools:['Excel','RapidMiner','Power BI']},
+  {t:'Desain',d:'Mengubah temuan menjadi user flow, wireframe, dan prototipe high-fidelity yang menjawab masalah yang sudah dirumuskan.',tools:['Figma','Prototyping']},
+  {t:'Uji',d:'Mengukur apakah solusi benar-benar mudah dipakai, misalnya dengan System Usability Scale dalam beberapa gelombang, lalu memperbaiki desain dari hasilnya.',tools:['SUS','Iterasi']}
+];
+const proc=$('#process'), sd=$('#stepdetail');
+steps.forEach((s,i)=>{
+  const b=document.createElement('button');b.className='step';b.type='button';
+  b.innerHTML=`<span class="n">Tahap ${i+1}</span><h3>${s.t}</h3>`;
+  b.onclick=()=>pickStep(i); proc.appendChild(b);
+});
+function pickStep(i){
+  [...proc.children].forEach((b,j)=>b.setAttribute('aria-pressed',j===i));
+  sd.innerHTML=`<p>${steps[i].d}</p><div class="tools">${steps[i].tools.map(t=>`<span class="tool">${t}</span>`).join('')}</div>`;
+}
+pickStep(0);
+
+/* ---------- works ---------- */
+const CAT={res:'Business Research',jur:'Jurnal',ux:'UI/UX'};
+const works=[
+  {id:'uniconnect',cat:'ux',shots:['uniconnect-1'],title:'UniConnect',year:'2026',sum:'Platform edukasi digital yang menghubungkan mahasiswa dengan sumber belajar.',metric:'Top 10 Finalist APBISDI 2026',
+   role:'UI/UX Designer',period:'Mei–Jun 2026',tools:'Figma',
+   body:[['Konteks','Dirancang untuk APBISDI UI/UX Competition 2026 dan lolos sebagai Top 10 Finalist.'],['Yang saya kerjakan',['Riset kebutuhan pengguna','User flow dan wireframe','Prototipe high-fidelity di Figma']]]},
+  {id:'cuan',cat:'ux',shots:['cuan-1'],title:'Cuan Lancar',year:'2026',sum:'Prototipe aplikasi manajemen keuangan untuk pelaku UMKM.',metric:'Prototipe interaktif',
+   role:'UI/UX Designer',period:'Apr–Jul 2026',tools:'Figma',
+   body:[['Konteks','Banyak UMKM masih mencatat keuangan secara manual. Cuan Lancar membantu pencatatan pemasukan dan pengeluaran dengan alur yang sederhana.'],['Yang saya kerjakan',['Pemetaan masalah pencatatan keuangan UMKM','Arsitektur informasi dan alur pencatatan','Prototipe yang bisa diklik']]]},
+  {id:'scamigo',cat:'ux',shots:['scamigo-1'],title:'ScamIGO',year:'2026',sum:'Aplikasi pemeriksa pesan dan tautan yang mencurigakan, lengkap dengan penjelasan risikonya.',metric:'28 layar mockup',
+   role:'UI Designer',period:'2026',tools:'Figma',
+   body:[['Konteks','Pengguna sering tidak tahu kenapa sebuah pesan berbahaya. ScamIGO tidak hanya memberi label, tetapi juga menjelaskan risikonya.'],['Fitur kunci',['Risk Explanation: penjelasan risiko yang riwayatnya bisa dibuka lagi setelah analisis','Safe Action: langkah aman yang bisa langsung diambil pengguna','Navbar dan user flow untuk 28 layar']]]},
+  {id:'ranta',cat:'ux',shots:['ranta-1'],title:'RANTA',year:'2026',sum:'Aplikasi mobile peringatan dini gempa dan banjir, difokuskan untuk kesiapsiagaan gempa.',metric:'OASE III 2026',
+   role:'UI/UX Designer & peneliti',period:'2026',tools:'Figma',
+   body:[['Konteks','Karya untuk OASE III 2026, Bidang Riset cabang Literasi Inovasi Teknologi.'],['Keputusan desain',['Dashboard dan splash difokuskan ke gempa, banjir sebagai pendukung','Peta jalur aman hanya menampilkan area terbuka yang sudah terverifikasi BPBD','Layar reassessment banjir muncul hanya saat risiko naik']]]},
+  {id:'dora',cat:'ux',wide:true,shots:['dora-1'],title:'DORA',year:'2026',sum:'Dataset Overview & Research Assistant: aplikasi desktop untuk literasi data dan rekomendasi machine learning.',metric:'Uji SUS 2 gelombang · v2',
+   role:'Tim Metriks Studio',period:'2026',tools:'Figma · Excel',
+   body:[['Konteks','Peneliti pemula sering bingung memilih metode machine learning untuk dataset mereka. DORA membantu dari unggah CSV sampai rekomendasi model dan research gap.'],['Alur aplikasi',['Unggah dataset lewat menu Dataset','Analisis kualitas data: missing value, outlier, korelasi','Rekomendasi ML, research gap, dan laporan riset']],['Pengujian','Usabilitas diuji dengan System Usability Scale dalam dua gelombang (13–14 dan 16–18 Oktober 2026), lalu desain diperbaiki menjadi versi 2.']]},
+  {id:'fraud',cat:'jur',title:'Fraud Pentagon Theory pada Emiten Syariah LQ45',year:'2024',sum:'Mendeteksi kecurangan laporan keuangan perusahaan syariah yang terindeks LQ45 periode 2023.',metric:'Prosiding AEBD · presenter',
+   role:'Peneliti & presenter',period:'Nov 2024',tools:'Data laporan keuangan',
+   body:[['Publikasi','Dipresentasikan dan dimuat di prosiding AEBD National Seminar & Call for Paper, Universitas Ibn Khaldun Bogor.'],['Kerangka','Fraud Pentagon Theory: tekanan, kesempatan, rasionalisasi, kapabilitas, dan arogansi sebagai indikator kecurangan pelaporan keuangan.']]},
+  {id:'honda',cat:'jur',wide:true,shots:['jbme-1'],title:'Analisis Persepsi Mahasiswa UIN Gus Dur Pekalongan tentang Faktor Harga, Merek, dan Psikologis dalam Keputusan Pembelian Motor Honda',year:'2025',sum:'Bagaimana harga, merek, dan faktor psikologis membentuk keputusan mahasiswa membeli sepeda motor Honda.',metric:'JBME Vol. 23 No. 1 · penulis pertama',
+   role:'Penulis pertama',period:'Jul 2025',tools:'Kuesioner · analisis kuantitatif',
+   body:[['Publikasi','JBME (Jurnal Bisnis Manajemen & Ekonomi), Vol. 23 No. 1, Juli 2025. ISSN 1693-8305 · e-ISSN 2797-5444.'],['Penulis','Lyra Anindita Ferani (penulis pertama), Putri Novitasari, dan Mohammad Rosyada. Fakultas Ekonomi dan Bisnis Islam, UIN K.H. Abdurrahman Wahid Pekalongan.'],['Variabel','Persepsi mahasiswa terhadap harga, merek, dan faktor psikologis dalam keputusan pembelian sepeda motor Honda.']]},
+  {id:'kti',cat:'jur',title:'Karya Tulis Ilmiah DORA (Data Overview & Research Assistant)',year:'2026',sum:'Karya tulis ilmiah tentang aplikasi desktop yang membantu peneliti pemula mengolah dataset, memahami kualitas data, dan memilih metode machine learning.',metric:'OASE III 2026 · Literasi Inovasi Teknologi',
+   role:'Penulis (tim Metriks Studio)',period:'Okt 2026',tools:'Kuesioner · SUS · Excel',
+   body:[['Kompetisi','Olimpiade Riset OASE III 2026, Bidang Riset cabang Literasi Inovasi Teknologi, ditulis bersama tim Metriks Studio dengan bimbingan dosen UIN K.H. Abdurrahman Wahid Pekalongan.'],['Latar belakang','Peneliti pemula sering kesulitan membaca kualitas dataset dan menentukan metode machine learning yang tepat. Karya ini menawarkan aplikasi desktop terpadu sebagai sarana literasi data.'],['Metode',['Kuesioner identifikasi permasalahan peneliti sebagai dasar perancangan fitur','Pengembangan aplikasi: unggah dataset, analisis kualitas data, rekomendasi ML, research gap, dan laporan riset','Uji usabilitas dengan System Usability Scale (SUS) dalam dua gelombang, 13–14 dan 16–18 Oktober 2026']],['Hasil','Temuan kuesioner dan skor SUS diolah di Excel, lalu dipakai untuk memperbaiki aplikasi hingga DORA v2.']]},
+  {id:'umkm',cat:'res',title:'Riset Pasar UMKM Pekalongan',year:'2026',sum:'Pengumpulan dan pengolahan data pasar untuk memahami kondisi UMKM di Pekalongan.',metric:'Research Assistant',
+   role:'Research Assistant',period:'Jun 2026',tools:'Survei lapangan · Excel',
+   body:[['Peran','Membantu tim peneliti dari pengumpulan data di lapangan sampai pengolahan awal.'],['Yang saya pelajari',['Merancang instrumen yang mudah dijawab pelaku usaha','Menjaga kualitas data sejak di lapangan']]]},
+  {id:'asgr',cat:'res',title:'Valuasi DCF-FCFF Emiten ASGR',year:'2026',sum:'Menghitung nilai wajar saham dengan model Discounted Cash Flow berbasis free cash flow to firm.',metric:'Model valuasi Excel',
+   role:'Analis (tugas kuliah)',period:'Okt 2026',tools:'Excel · data BPS',
+   body:[['Pendekatan','Memproyeksikan arus kas bebas perusahaan dan mendiskontokannya untuk mendapatkan nilai wajar.'],['Data','Asumsi pertumbuhan PDB tahunan Indonesia disesuaikan dengan sumber BPS.']]},
+  {id:'trading',cat:'res',title:'Analisis Teknikal Saham',year:'2026',sum:'Presentasi analisis teknikal untuk Lomba Virtual Trading bersama tim.',metric:'Tim 3 orang',
+   role:'Anggota tim',period:'Okt 2026',tools:'Chart · indikator teknikal',
+   body:[['Konteks','Bahan presentasi untuk Lomba Virtual Trading dengan tema Analisis Teknikal.'],['Cakupan','Membaca tren harga dan indikator teknikal sebagai dasar keputusan jual dan beli.']]},
+  {id:'peneliti',cat:'res',title:'Survei Kebutuhan Peneliti Pemula',year:'2026',sum:'Kuesioner untuk memetakan kesulitan peneliti pemula saat mengolah dataset.',metric:'Dasar pengembangan DORA',
+   role:'Peneliti',period:'2026',tools:'Kuesioner · Excel',
+   body:[['Tujuan','Menemukan masalah nyata peneliti sebelum aplikasi dirancang.'],['Hasil','Temuan survei menjadi dasar fitur DORA dan dimasukkan ke bagian hasil KTI.']]}
+];
+
+const IMG_DIR='img/';
+function shotImg(n,box){const im=new Image();im.alt='Tampilan '+n.replace(/-\d$/,'');im.loading='lazy';im.src=IMG_DIR+n+'.png';
+  im.onerror=()=>{im.remove();if(box&&!box.querySelector('img'))box.remove()};return im}
+let cat='all', q='';
+const filters=$('#filters'), grid=$('#grid');
+[['all','Semua'],...Object.entries(CAT)].forEach(([k,v])=>{
+  const b=document.createElement('button');b.type='button';b.className='chip';b.dataset.k=k;
+  const n=k==='all'?works.length:works.filter(w=>w.cat===k).length;
+  b.innerHTML=`${v}<span class="c">${n}</span>`;
+  b.onclick=()=>{cat=k;apply()}; filters.appendChild(b);
+});
+works.forEach((w,i)=>{
+  const c=document.createElement('button');c.type='button';c.className='card';c.dataset.i=i;
+  c.innerHTML=`<div class="thumb"><canvas data-i="${i}"></canvas></div><div class="cbody">
+    <div class="ctop"><span class="tag ${w.cat}">${CAT[w.cat]}</span><span class="mono" style="color:var(--muted)">${w.year}</span></div>
+    <h3>${w.title}</h3><p>${w.sum}</p><span class="metric${w.wip?' wip':''}">${w.metric}</span></div>`;
+  if(w.shots){
+    const box=document.createElement('div');box.className='shots'+(w.wide?' wide':'');
+    w.shots.slice(0,w.wide?1:3).forEach(n=>box.appendChild(shotImg(n,box)));
+    c.querySelector('.thumb').appendChild(box);
+  }
+  c.onclick=()=>openWork(i); grid.appendChild(c);
+});
+function apply(){
+  [...filters.children].forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===cat));
+  let shown=0;
+  [...grid.children].forEach(c=>{
+    const w=works[c.dataset.i];
+    const ok=(cat==='all'||w.cat===cat)&&(!q||(w.title+w.sum+w.metric).toLowerCase().includes(q));
+    c.classList.toggle('hide',!ok); if(ok)shown++;
+  });
+  $('#empty').hidden=shown>0;
+}
+$('#search').addEventListener('input',e=>{q=e.target.value.trim().toLowerCase();apply()});
+apply();
+
+/* generative thumbnails: each category gets its own visual language */
+function rng(seed){let s=seed;return()=>((s=Math.imul(s^s>>>15,s|1)^(s+Math.imul(s^s>>>7,s|61)),((s^s>>>14)>>>0)/4294967296))}
+function drawThumbs(){
+  const C={ind:css('--indigo'),mint:css('--mint'),amb:css('--amber'),line:css('--line'),bg:css('--paper'),soft:css('--indigo-soft')};
+  document.querySelectorAll('.thumb canvas').forEach(cv=>{
+    const w=works[cv.dataset.i], dpr=devicePixelRatio||1, W=cv.clientWidth||320, H=cv.clientHeight||180;
+    cv.width=W*dpr;cv.height=H*dpr;const g=cv.getContext('2d');g.scale(dpr,dpr);
+    const r=rng([...w.id].reduce((a,c)=>a*31+c.charCodeAt(0),7));
+    g.fillStyle=C.bg;g.fillRect(0,0,W,H);
+    if(w.cat==='res'){ // bar + line chart
+      g.strokeStyle=C.line;g.lineWidth=1;for(let y=H*.2;y<H;y+=H*.2){g.beginPath();g.moveTo(16,y);g.lineTo(W-16,y);g.stroke()}
+      const n=9,bw=(W-32)/n;let pts=[];
+      for(let k=0;k<n;k++){const h=(.25+r()*.55)*H;g.fillStyle=k===n-1?C.mint:C.soft;g.fillRect(16+k*bw+4,H-h,bw-8,h);pts.push([16+k*bw+bw/2,H-h-10])}
+      g.strokeStyle=C.mint;g.lineWidth=2;g.beginPath();pts.forEach((p,k)=>k?g.lineTo(...p):g.moveTo(...p));g.stroke();
+      g.fillStyle=C.mint;const e=pts[pts.length-1];g.beginPath();g.arc(e[0],e[1],4,0,7);g.fill();
+    } else if(w.cat==='jur'){ // text column with highlighted lines
+      for(let col=0;col<2;col++){const x0=20+col*(W/2);for(let y=22;y<H-10;y+=12){
+        const len=(W/2-36)*(.55+r()*.45);g.fillStyle=r()<.12?C.amb:C.line;g.fillRect(x0,y,len,5)}}
+      g.fillStyle=C.amb;g.font=`600 11px ${css('--f-mono')}`;g.fillText('§',W-24,H-12);
+    } else { // phone frames
+      const pw=H*.42,ph=H*.8;for(let k=-1;k<=1;k++){
+        const x=W/2+k*(pw+14)-pw/2,y=(H-ph)/2+(k?10:0);
+        g.fillStyle=k?C.soft:C.ind;g.beginPath();g.roundRect(x,y,pw,ph,8);g.fill();
+        g.fillStyle=k?C.bg:C.soft;for(let j=0;j<4;j++){g.beginPath();g.roundRect(x+7,y+14+j*(ph*.2),pw-14-(r()*pw*.3),ph*.11,3);g.fill()}
+      }
+    }
+  });
+}
+drawThumbs(); addEventListener('resize',()=>{clearTimeout(window._rt);window._rt=setTimeout(()=>{drawThumbs();sizeField()},150)});
+
+/* dialog */
+const dlg=$('#dlg');
+function openWork(i){
+  const w=works[i];
+  $('#dTag').className='tag '+w.cat;$('#dTag').textContent=CAT[w.cat];$('#dTitle').textContent=w.title;
+  let h=`<div class="facts"><div><span class="label">Peran</span><b>${w.role}</b></div><div><span class="label">Periode</span><b>${w.period}</b></div><div><span class="label">Alat</span><b>${w.tools}</b></div></div><p>${w.sum}</p>`;
+  $('#dBody').innerHTML='';
+  w.body.forEach(([t,c])=>{h+=`<div><h4>${t}</h4>${Array.isArray(c)?`<ul>${c.map(x=>`<li>${x}</li>`).join('')}</ul>`:`<p>${c}</p>`}</div>`});
+  $('#dBody').innerHTML=h;
+  if(w.shots){const g=document.createElement('div');g.className='gallery'+(w.wide?' wide':'');
+    w.shots.forEach(n=>g.appendChild(shotImg(n,g)));$('#dBody').prepend(g)}
+  dlg.showModal();
+}
+$('#dClose').onclick=()=>dlg.close();
+dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
+
+/* copy email */
+$('#copyBtn').addEventListener('click',async()=>{
+  const t=$('#email').textContent,b=$('#copyBtn');
+  try{await navigator.clipboard.writeText(t);b.textContent='Tersalin ✓'}
+  catch(e){const s=getSelection(),r=document.createRange();r.selectNodeContents($('#email'));s.removeAllRanges();s.addRange(r);b.textContent='Teks dipilih'}
+  setTimeout(()=>b.textContent='Salin email',1800);
+});
+
+/* nav highlight */
+const secs=['cara','karya','pengalaman','kontak'].map(id=>document.getElementById(id));
+addEventListener('scroll',()=>{let cur='';secs.forEach(s=>{if(s.getBoundingClientRect().top<160)cur=s.id});
+  document.querySelectorAll('.navlinks a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+cur))},{passive:true});
+
+/* hero data field: points cluster toward a regression line, cursor pulls them */
+const fc=$('#field'),fg=fc.getContext('2d'),ro=$('#readout');let FW,FH,pts=[],mouse=null;
+function sizeField(){const dpr=devicePixelRatio||1;FW=fc.clientWidth;FH=fc.clientHeight;fc.width=FW*dpr;fc.height=FH*dpr;fg.setTransform(dpr,0,0,dpr,0,0);
+  const r=rng(42);pts=[];for(let i=0;i<220;i++){const x=r(),noise=(r()+r()+r()-1.5)*.35;const y=Math.min(.97,Math.max(.03,.15+x*.7+noise*.5));
+    pts.push({hx:x,hy:1-y,x:x,y:1-y,c:r()<.18})}}
+sizeField();
+function frame(){
+  const ind=css('--indigo'),mint=css('--mint'),line=css('--line'),muted=css('--muted');
+  fg.clearRect(0,0,FW,FH);
+  fg.strokeStyle=line;fg.lineWidth=1;for(let k=1;k<5;k++){const v=k/5;fg.beginPath();fg.moveTo(v*FW,0);fg.lineTo(v*FW,FH);fg.moveTo(0,v*FH);fg.lineTo(FW,v*FH);fg.stroke()}
+  let sx=0,sy=0,sxy=0,sxx=0;
+  pts.forEach(p=>{let tx=p.hx,ty=p.hy;
+    if(mouse){const dx=mouse.x-p.hx,dy=mouse.y-p.hy,d=Math.hypot(dx,dy);if(d<.25){const f=(.25-d)/.25;tx+=dx*f*.6;ty+=dy*f*.6}}
+    p.x+=(tx-p.x)*(reduce?1:.12);p.y+=(ty-p.y)*(reduce?1:.12);
+    sx+=p.x;sy+=1-p.y;sxy+=p.x*(1-p.y);sxx+=p.x*p.x;
+    fg.fillStyle=p.c?mint:ind;fg.globalAlpha=p.c?.95:.55;fg.beginPath();fg.arc(p.x*FW,p.y*FH,p.c?3.4:2.6,0,7);fg.fill()});
+  fg.globalAlpha=1;
+  const n=pts.length,m=(n*sxy-sx*sy)/(n*sxx-sx*sx),b=(sy-m*sx)/n;
+  fg.strokeStyle=mint;fg.lineWidth=2;fg.setLineDash([6,5]);fg.beginPath();fg.moveTo(0,(1-b)*FH);fg.lineTo(FW,(1-(m+b))*FH);fg.stroke();fg.setLineDash([]);
+  fg.fillStyle=muted;fg.font=`11px ${css('--f-mono')}`;fg.fillText(`ŷ = ${b.toFixed(2)} + ${m.toFixed(2)}x`,12,FH-12);
+  if(mouse){ro.textContent=`x ${mouse.x.toFixed(2)} · y ${(1-mouse.y).toFixed(2)}`}
+  if(!reduce||mouse)requestAnimationFrame(frame);
+}
+fc.addEventListener('pointermove',e=>{const r=fc.getBoundingClientRect();const was=!!mouse;mouse={x:(e.clientX-r.left)/r.width,y:(e.clientY-r.top)/r.height};if(reduce&&!was)requestAnimationFrame(frame)});
+fc.addEventListener('pointerleave',()=>{mouse=null;ro.textContent='x 0.00 · y 0.00';if(reduce)requestAnimationFrame(frame)});
+requestAnimationFrame(frame);
+</script>
+
+</body>
+</html>
