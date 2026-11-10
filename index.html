@@ -40,16 +40,16 @@ a{color:var(--indigo)}
 nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--paper) 88%,transparent);
   backdrop-filter:blur(10px);border-bottom:1px solid var(--line);margin:0 calc(-1 * max(16px,env(safe-area-inset-left,0px)))}
 nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px max(16px,env(safe-area-inset-left,0px))}
-.brand{font-family:var(--f-display);font-weight:800;font-size:1.1rem;text-decoration:none;color:var(--ink)}
+.brand{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:var(--muted);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
 .brand span{color:var(--indigo)}
-.navlinks{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
+.navlinks{display:flex;gap:4px;align-items:center;flex-wrap:nowrap;flex-shrink:0}
 .navlinks a{color:var(--muted);text-decoration:none;font-size:.9rem;padding:6px 10px;border-radius:999px}
 .navlinks a:hover,.navlinks a.on{color:var(--ink);background:var(--indigo-soft)}
 .themebtn{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 10px;cursor:pointer;font:inherit;font-size:.85rem}
-@media (max-width:640px){.navlinks a:not(.keep){display:none}}
+@media (max-width:640px){.navlinks a:not(.keep){display:none}.navlinks a{padding:6px 8px}.brand{font-size:.64rem;letter-spacing:.05em;white-space:normal;line-height:1.35}.brand .b2{display:none}}
 
 /* hero */
-.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding-block:64px 48px}
+.hero{display:grid;grid-template-columns:1fr;max-width:820px;gap:40px;align-items:center;padding-block:64px 48px}
 .hero > *{min-width:0}
 .hero h1{font-size:clamp(2.6rem,7vw,5.2rem);font-weight:800;letter-spacing:-.03em}
 .hero h1 em{font-style:normal;color:var(--indigo)}
@@ -63,10 +63,6 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px
 .btn.primary{background:var(--ink);color:var(--paper)}
 .btn.ghost{background:transparent;color:var(--ink)}
 
-.field{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:16px;position:relative}
-.field canvas{width:100%;aspect-ratio:1/1;max-width:100%;display:block;border-radius:12px;cursor:crosshair;touch-action:none}
-.field-meta{display:flex;justify-content:space-between;gap:8px;margin-top:10px;color:var(--muted);flex-wrap:wrap}
-.readout{position:absolute;top:28px;left:28px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 10px;pointer-events:none}
 
 /* stats */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
@@ -210,7 +206,7 @@ footer{padding-block:0 32px;color:var(--muted);display:flex;justify-content:spac
 
 <nav aria-label="Navigasi utama">
   <div class="wrap">
-    <a class="brand" href="#top">Lyra<span>.</span></a>
+    <a class="brand" href="#top">Portofolio · Bisnis Digital<span class="b2"> · UIN K.H. Abdurrahman Wahid Pekalongan</span></a>
     <div class="navlinks">
       <a href="#cara">Cara Kerja</a>
       <a href="#karya" class="keep">Karya</a>
@@ -225,8 +221,7 @@ footer{padding-block:0 32px;color:var(--muted);display:flex;justify-content:spac
 <main class="wrap" id="top">
   <header class="hero">
     <div>
-      <p class="label">Portofolio · Bisnis Digital · UIN K.H. Abdurrahman Wahid Pekalongan</p>
-      <h1 style="margin-top:14px">Lyra Anindita <em>Ferani</em></h1>
+      <h1>Lyra Anindita <em>Ferani</em></h1>
       <p class="lede">Saya meneliti perilaku bisnis dengan data, menuliskannya menjadi jurnal, lalu menerjemahkan temuannya menjadi antarmuka yang mudah dipakai.</p>
       <div class="roles">
         <span class="role"><b>●</b> Business Research</span>
@@ -238,11 +233,6 @@ footer{padding-block:0 32px;color:var(--muted);display:flex;justify-content:spac
         <a class="btn ghost" href="#blog">Baca blog saya</a>
       </div>
     </div>
-    <figure class="field" style="margin:0">
-      <canvas id="field" aria-label="Visualisasi titik data interaktif. Gerakkan kursor untuk mengubah sebaran."></canvas>
-      <div class="readout mono" id="readout">x 0.00 · y 0.00</div>
-      <figcaption class="field-meta mono"><span>Sebaran data · gerakkan kursor</span><span>6°53′ LS · 109°40′ BT</span></figcaption>
-    </figure>
   </header>
 
   <div class="stats" aria-label="Ringkasan">
@@ -320,7 +310,7 @@ footer{padding-block:0 32px;color:var(--muted);display:flex;justify-content:spac
       <div class="links"><span style="opacity:.6">Batang, Jawa Tengah</span></div>
     </div>
   </div>
-  <footer class="mono"><span>© 2026 Lyra Anindita Ferani</span><span>Dibuat dengan data dan rasa ingin tahu</span></footer>
+  <footer class="mono"><span>© 2026 Lyra Anindita Ferani</span></footer>
 </main>
 
 <dialog id="dlg" aria-labelledby="dTitle">
@@ -469,7 +459,7 @@ function drawThumbs(){
     }
   });
 }
-drawThumbs(); addEventListener('resize',()=>{clearTimeout(window._rt);window._rt=setTimeout(()=>{drawThumbs();sizeField()},150)});
+drawThumbs(); addEventListener('resize',()=>{clearTimeout(window._rt);window._rt=setTimeout(()=>{drawThumbs()},150)});
 
 /* blog posts */
 const POSTS=[
@@ -507,32 +497,6 @@ const secs=['cara','karya','blog','pengalaman','kontak'].map(id=>document.getEle
 addEventListener('scroll',()=>{let cur='';secs.forEach(s=>{if(s.getBoundingClientRect().top<160)cur=s.id});
   document.querySelectorAll('.navlinks a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+cur))},{passive:true});
 
-/* hero data field: points cluster toward a regression line, cursor pulls them */
-const fc=$('#field'),fg=fc.getContext('2d'),ro=$('#readout');let FW,FH,pts=[],mouse=null;
-function sizeField(){const dpr=devicePixelRatio||1;FW=fc.clientWidth;FH=fc.clientHeight;fc.width=FW*dpr;fc.height=FH*dpr;fg.setTransform(dpr,0,0,dpr,0,0);
-  const r=rng(42);pts=[];for(let i=0;i<220;i++){const x=r(),noise=(r()+r()+r()-1.5)*.35;const y=Math.min(.97,Math.max(.03,.15+x*.7+noise*.5));
-    pts.push({hx:x,hy:1-y,x:x,y:1-y,c:r()<.18})}}
-sizeField();
-function frame(){
-  const ind=css('--indigo'),mint=css('--mint'),line=css('--line'),muted=css('--muted');
-  fg.clearRect(0,0,FW,FH);
-  fg.strokeStyle=line;fg.lineWidth=1;for(let k=1;k<5;k++){const v=k/5;fg.beginPath();fg.moveTo(v*FW,0);fg.lineTo(v*FW,FH);fg.moveTo(0,v*FH);fg.lineTo(FW,v*FH);fg.stroke()}
-  let sx=0,sy=0,sxy=0,sxx=0;
-  pts.forEach(p=>{let tx=p.hx,ty=p.hy;
-    if(mouse){const dx=mouse.x-p.hx,dy=mouse.y-p.hy,d=Math.hypot(dx,dy);if(d<.25){const f=(.25-d)/.25;tx+=dx*f*.6;ty+=dy*f*.6}}
-    p.x+=(tx-p.x)*(reduce?1:.12);p.y+=(ty-p.y)*(reduce?1:.12);
-    sx+=p.x;sy+=1-p.y;sxy+=p.x*(1-p.y);sxx+=p.x*p.x;
-    fg.fillStyle=p.c?mint:ind;fg.globalAlpha=p.c?.95:.55;fg.beginPath();fg.arc(p.x*FW,p.y*FH,p.c?3.4:2.6,0,7);fg.fill()});
-  fg.globalAlpha=1;
-  const n=pts.length,m=(n*sxy-sx*sy)/(n*sxx-sx*sx),b=(sy-m*sx)/n;
-  fg.strokeStyle=mint;fg.lineWidth=2;fg.setLineDash([6,5]);fg.beginPath();fg.moveTo(0,(1-b)*FH);fg.lineTo(FW,(1-(m+b))*FH);fg.stroke();fg.setLineDash([]);
-  fg.fillStyle=muted;fg.font=`11px ${css('--f-mono')}`;fg.fillText(`ŷ = ${b.toFixed(2)} + ${m.toFixed(2)}x`,12,FH-12);
-  if(mouse){ro.textContent=`x ${mouse.x.toFixed(2)} · y ${(1-mouse.y).toFixed(2)}`}
-  if(!reduce||mouse)requestAnimationFrame(frame);
-}
-fc.addEventListener('pointermove',e=>{const r=fc.getBoundingClientRect();const was=!!mouse;mouse={x:(e.clientX-r.left)/r.width,y:(e.clientY-r.top)/r.height};if(reduce&&!was)requestAnimationFrame(frame)});
-fc.addEventListener('pointerleave',()=>{mouse=null;ro.textContent='x 0.00 · y 0.00';if(reduce)requestAnimationFrame(frame)});
-requestAnimationFrame(frame);
 </script>
 
 </body>
